@@ -41,13 +41,10 @@ function lucasNumber(n, memo = {}) {
 // sumArray([5, 2])         // => 7
 // sumArray([4, 10, -1, 2]) // => 15
 function sumArray(array) {
-    let total;
     if (array.length === 0){
-        return 0
-    } else{
-        total += sumArray(array.slice(1));
+        return 0;
     }
-    return total
+    return array[0] += sumArray(array.slice(1));
 }
 
 
@@ -63,7 +60,8 @@ function sumArray(array) {
 // reverseString("internet")    // => "tenretni"
 // reverseString("friends")     // => "sdneirf"
 function reverseString(str) {
-
+    if(!str.length) return "";
+    return str[str.length - 1] + reverseString(str.slice(0, str.length - 1))
 }
 
 
@@ -84,7 +82,15 @@ function reverseString(str) {
 // pow(3, 4)    // => 81
 // pow(2, -5)   // => 0.03125
 function pow(base, exponent) {
+    if(exponent === 0){
+        return 1;
+    }
 
+    if(exponent > 0) {
+        return base * pow(base, exponent - 1)
+    } else {
+        return 1/base * pow(base, exponent + 1)
+    }
 }
 
 
@@ -116,8 +122,18 @@ function pow(base, exponent) {
 //     1-dimensional array: ['some data']
 //     2-dimensional array: [['some data']]
 //     3-dimensional array: [[['some data']]]
-function flatten(data) {
 
+function flatten(data) {
+    let flattened = []
+
+    data.forEach( el => {
+        if (el instanceof Array){
+            flattened = flattened.concat(flatten(el))
+        } else {
+            flattened.push(el)
+        }
+    } )
+    return flattened
 }
 
 // Write a function, fileFinder(directories, targetFile), that accepts an object representing directories and a string respresenting a filename.
