@@ -25,5 +25,3 @@ const searchInsert = function(nums, target) {
 
     return ans;
 };
-
-hello
