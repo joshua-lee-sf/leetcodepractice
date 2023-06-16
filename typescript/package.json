@@ -4,13 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "npm run build && node dist/index",
+    "dev": "nodemon -w src -e ts -x 'npm start'"
   },
   "keywords": [],
-  "author": "",
+  "author": "Big Poo Poo Man",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^20.3.1",
     "typescript": "^5.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
