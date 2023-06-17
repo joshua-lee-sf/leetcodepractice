@@ -26,6 +26,18 @@ const searchInsert = function(nums, target) {
     return ans;
 };
 
+var removeElement = function(nums, val) {
+    let count = 0;
+
+    for (let i = 0; i < nums.length; i++){
+        if (nums[i] !== val){
+            nums[count++] = nums[i]
+        }
+    }
+
+    return count
+};
+
 var removeDuplicates = function(nums) {
     let count = 0
 
@@ -38,3 +50,5 @@ var removeDuplicates = function(nums) {
 
     return count + 1
 };
+
+hello
