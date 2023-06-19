@@ -50,3 +50,30 @@ var removeDuplicates = function(nums) {
 
     return count + 1
 };
+
+linkedList = {
+    "dog": {
+        value: "dog",
+        next: "cat"
+    },
+    "cat":{
+        value: "cat",
+        next: "bird"
+    },
+    "bird":{
+        value: "bird",
+        next: null
+    }
+}
+
+var reverseList = function(head) {
+    if (!head || !head.next) return head;
+
+    const res = reverseList(head.next);
+    console.log(res, "res")
+    head.next.next = head;
+    head.next = null;
+    return res
+};
+
+console.log(reverseList(linkedList));
