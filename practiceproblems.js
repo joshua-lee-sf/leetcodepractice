@@ -26,6 +26,8 @@ const searchInsert = function(nums, target) {
     return ans;
 };
 
+// 27. Remove Element
+
 var removeElement = function(nums, val) {
     let count = 0;
 
@@ -37,6 +39,8 @@ var removeElement = function(nums, val) {
 
     return count
 };
+
+// 26. Remove Duplicates from Sorted Array
 
 var removeDuplicates = function(nums) {
     let count = 0
@@ -51,20 +55,7 @@ var removeDuplicates = function(nums) {
     return count + 1
 };
 
-linkedList = {
-    "dog": {
-        value: "dog",
-        next: "cat"
-    },
-    "cat":{
-        value: "cat",
-        next: "bird"
-    },
-    "bird":{
-        value: "bird",
-        next: null
-    }
-}
+// 206 Reversed Linked List
 
 var reverseList = function(head) {
     if (!head || !head.next) return head;
@@ -75,5 +66,3 @@ var reverseList = function(head) {
     head.next = null;
     return res
 };
-
-console.log(reverseList(linkedList));
