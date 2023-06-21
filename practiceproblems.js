@@ -66,3 +66,107 @@ var reverseList = function(head) {
     head.next = null;
     return res
 };
+
+// 707. designed linkedList
+
+var MyLinkedList = function() {
+    this.head = null;
+};
+
+/** 
+ * @param {number} index
+ * @return {number}
+ */
+MyLinkedList.prototype.get = function(index) {
+    let currentNode = this.head;
+
+    while (index && currentNode.next){
+        currentNode = currentNode.next;
+        index--;
+    }
+
+    return !index && currentNode ? currentNode.val : -1;
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+MyLinkedList.prototype.addAtHead = function(val) {
+    const newHead = {
+        val,
+        next: this.head
+    }
+
+    this.head = newHead;
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+MyLinkedList.prototype.addAtTail = function(val) {
+    let node = this.head;
+    const crt = {
+        val,
+        next: null
+    }
+    
+    if (node) {
+        while (node.next) {
+            node = node.next;
+        }
+    
+        node.next = crt;
+    } else {
+        this.head = crt;
+    }
+};
+
+/** 
+ * @param {number} index 
+ * @param {number} val
+ * @return {void}
+ */
+MyLinkedList.prototype.addAtIndex = function(index, val) {
+    if (index === 0) {
+        this.addAtHead(val);
+    } else {
+        let node = this.head;
+    
+        while (index > 1 && node?.next) {
+            node = node.next;
+            index --;
+        }
+    
+        if (index === 1 && node) {
+            const crt = {
+                val,
+                next: node.next
+            };
+        
+            node.next = crt;
+        }
+    }
+};
+
+/** 
+ * @param {number} index
+ * @return {void}
+ */
+MyLinkedList.prototype.deleteAtIndex = function(index) {
+    let node = this.head;
+    
+    if (index === 0) {
+        this.head = node.next;
+    } else {
+        while (index > 1 && node.next) {
+            node = node.next;
+            index --;
+        }
+    
+        if (index === 1) {
+            node.next = node.next?.next;
+        }   
+    }
+};
