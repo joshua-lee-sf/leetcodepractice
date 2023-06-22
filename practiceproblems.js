@@ -170,5 +170,3 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
         }   
     }
 };
-
-poop
