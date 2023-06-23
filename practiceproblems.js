@@ -225,3 +225,40 @@ MyStack.prototype.top = function() {
 MyStack.prototype.empty = function() {
     return this.queue.length === 0
 };
+
+// 13. Roman to integer
+
+var romanToInt = function(s) {
+    // hashmap of chars: values
+    // let total = 0; total ++ by chars[values]
+    // if next char > current char ( - )
+    // return total at the end
+
+    // III
+
+    const numerals = {
+        "I": 1,
+        "V": 5,
+        "X": 10,
+        "L": 50,
+        "C": 100,
+        "D": 500,
+        "M": 1000
+    }
+
+    let total = 0;
+
+    for (let i = 0; i < s.length; i++){ // s.length = 3, i = 2
+        let currChar = numerals[s[i]]
+        let nextChar = numerals[s[i + 1]] // 3
+        
+        if (currChar < nextChar){ // 1 < undefined 
+            total += (nextChar - currChar);
+            i++;
+        } else {
+            total += currChar; // total = 2
+        };
+    };
+
+    return total
+};
