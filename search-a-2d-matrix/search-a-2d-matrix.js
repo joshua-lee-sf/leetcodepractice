@@ -4,37 +4,69 @@
  * @return {boolean}
  */
 var searchMatrix = function(matrix, target) {
+    // ROW = matrix.length;
+    // COLUMN = matrix[0].length;
+
+    // let top = 0; bottom = ROW - 1;
+    // while(top <= bottom){
+    //     let row = Math.floor(top + bottom / 2);
+    //     if (target > matrix[row][COLUMN - 1]){
+    //         top = row + 1;
+    //     } else if (target < matrix[row][0]){
+    //         bottom = row - 1;
+    //     } else {
+    //         break;
+    //     }
+    // }
+
+    // if (!(top <= bottom)) return false;
+
+    // let row = Math.floor((top + bottom) / 2);
+    // let l = 0, r = COLUMN - 1;
+    // while (l <= r){
+    //     let m = Math.floor((l + r) / 2);
+    //     if (target > matrix[row][m]){
+    //         l = m + 1;
+    //     } else if (target < matrix[row][m]){
+    //         r = m - 1;
+    //     } else if (target === matrix[row][m]) {
+    //         return true;
+    //     }
+    // }
+
+    // return false;
+
+    let [rows, cols] = [matrix.length, matrix[0].length];
+    let [top, bot] = [0, rows-1];
     
-    // log (m*n) = log(m) + log(n) 
-    // finding the row in log(n) time and then finding target in log(m) time
-
-    const m = matrix[0].length,n = matrix.length;
-    if (target < matrix[0][0] || target > matrix[n-1][m-1]) return false;
-
-    let low = 0,high = matrix.length-1;
-    let mid;
-    while (low <= high) {
-        mid = Math.floor((low+high)/2)
-
-        if (target <= matrix[mid][m-1] && target >= matrix[mid][0]) break;
-        if (target < matrix[mid][0]) high = mid - 1;
-        else if (target > matrix[mid][m-1]) low = mid + 1;
+    while(top <= bot){
+        let row = Math.floor((top +  bot) / 2);
+        if(target > matrix[row][cols-1]) {
+            top = row + 1;
+        } else if(target < matrix[row][0]) {
+            bot = row - 1; 
+        } else {
+            break;
+        }
     }
-
-
-    return binarySearch(target,matrix[mid])
-};
-
-function binarySearch(target,nums) {
-    let low = 0,high = nums.length-1;
-
-    while (low <= high) {
-        let mid = Math.floor((low+high)/2);
-        if(target == nums[mid]) return true;
-
-        if(target < nums[mid]) high = mid - 1;
-        else low = mid + 1;
+    
+    if(!(top <= bot)) {
+        return false;
     }
+    
+    let row = Math.floor((top + bot) / 2);
+    let [l, r] = [0, cols-1];
+    while(l<=r){
+        let m = Math.floor((l + r) /2);
+        if(target > matrix[row][m]) {
+            l = m +1;
+        } else if(target < matrix[row][m]) {
+            r = m - 1;
+        } else if(target == matrix[row][m]) {
+            return true;
+        }
+    }
+    return false;
 
-    return false
+
 };
