@@ -17,12 +17,8 @@ var guessNumber = function(n) {
     while (low <= high){
         let mid = Math.floor((low + high) / 2);
         let res = guess(mid);
-        if (res === 0){
-            return mid
-        } else if (res === -1){
-            high = mid - 1
-        } else if (res === 1){
-            low = mid + 1
-        }
+        if (res === 0) return mid;
+        else if (res === 1) low = mid + 1;
+        else if (res === -1) high = mid - 1;
     }
 };
