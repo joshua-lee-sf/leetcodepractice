@@ -17,3 +17,5 @@ var search = function(nums, target) {
         return result === -1 ? -1 : result + midpoint + 1
     }
 };
+
+search([1,2,3,4,5,6,7,8,9,10], 8)
