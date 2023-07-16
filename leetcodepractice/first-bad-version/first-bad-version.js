@@ -33,5 +33,3 @@ var solution = function(isBadVersion) {
         return low
     };
 };
-
-hi
