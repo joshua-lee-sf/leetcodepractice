@@ -7,13 +7,17 @@ var subsets = function(nums) {
 
     let subset = []
     const dfs = (i) => {
-        if (i >= nums.length) {
-            let copy = [...subset]
-            subsets.push(copy)
+        if (i >= nums.length){
+            const copy = [...subset];
+            subsets.push(copy);
             return;
         }
+
+        // add nums[i]
         subset.push(nums[i])
         dfs(i + 1);
+
+        // do not add nums[i] by popping
         subset.pop();
         dfs(i + 1);
     }
