@@ -3,22 +3,24 @@
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum = function(candidates, target, index = 0, combination = [], combinations = []) {
-    const isBaseCase = target < 0;
-    if (isBaseCase) return combinations;
-
-    const isTarget = target === 0;
-    if (isTarget) return combinations.push(combination.slice());
-
-    for (let i = index; i < candidates.length; i++){
-        backTrack(candidates, target, i, combination, combinations)
-    }
-
-    return combinations
+var combinationSum = function(candidates, target) {
+    const result = [];
+    backTrack(0, [], 0, candidates, target, result);
+    return result;
 };
 
-const backTrack = (candidates, target, i, combination, combinations) => {
-    combination.push(candidates[i]);
-    combinationSum(candidates, (target - candidates[i]), i, combination, combinations);
-    combination.pop();
+const backTrack = (i, tempArray, total, candidates, target, result) => {
+    if (total === target){
+        result.push([...tempArray]);
+        return;
+    }
+
+    if (i >= candidates.length || total > target){
+        return;
+    }
+
+    tempArray.push(candidates[i]);
+    backTrack(i, tempArray, total + candidates[i], candidates, target, result);
+    tempArray.pop();
+    backTrack(i + 1, tempArray, total, candidates, target, result)
 }
