@@ -34,4 +34,3 @@ var solution = function(isBadVersion) {
     };
 };
 
-helo    
