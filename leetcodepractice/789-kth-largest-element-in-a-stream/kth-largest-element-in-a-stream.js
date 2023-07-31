@@ -3,8 +3,12 @@
  * @param {number[]} nums
  */
 var KthLargest = function(k, nums) {
-    this.k = k;
-    this.nums = nums;
+    this.k = k
+    this.nums = nums
+    this.minHeap = new MinPriorityQueue()
+
+    nums.forEach((num) => this.minHeap.enqueue(num))
+    while(this.minHeap.size() > k) this.minHeap.dequeue().element
 };
 
 /** 
@@ -12,8 +16,9 @@ var KthLargest = function(k, nums) {
  * @return {number}
  */
 KthLargest.prototype.add = function(val) {
-    this.nums.push(val);
-    return this.nums.sort((a,b) => b-a)[this.k-1]
+    this.minHeap.enqueue(val)
+    if(this.minHeap.size() > this.k) this.minHeap.dequeue().element;
+    return this.minHeap.front().element;
 };
 
 /** 
