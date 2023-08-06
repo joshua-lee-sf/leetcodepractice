@@ -2,24 +2,38 @@
  * @param {number} k
  * @param {number[]} nums
  */
-var KthLargest = function(k, nums) {
-    this.k = k
-    this.nums = nums
-    this.minHeap = new MinPriorityQueue()
+class KthLargest{
 
-    nums.forEach((num) => this.minHeap.enqueue(num))
-    while(this.minHeap.size() > k) this.minHeap.dequeue().element
-};
+    constructor(k, nums){
+        this.k = k;
+        this.minHeap = new MinPriorityQueue();
+        nums.forEach((num) => this.add(num));
+    }
 
 /** 
  * @param {number} val
  * @return {number}
  */
-KthLargest.prototype.add = function(val) {
-    this.minHeap.enqueue(val)
-    if(this.minHeap.size() > this.k) this.minHeap.dequeue().element;
-    return this.minHeap.front().element;
-};
+    add(val, {minHeap} = this ) {
+    const isUnderCapacity = minHeap.size() < this.k;
+    if(isUnderCapacity){
+        minHeap.enqueue(val);
+        return this.top();
+    }
+
+    const isLarger = this.top() < val;
+    if (isLarger){
+        minHeap.dequeue();
+        minHeap.enqueue(val);
+    }
+
+    return this.top();
+    };
+
+    top({minHeap} = this){
+        return minHeap.front()?.element || 0;
+    }
+}
 
 /** 
  * Your KthLargest object will be instantiated and called as such:
