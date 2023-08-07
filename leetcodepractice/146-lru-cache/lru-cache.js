@@ -4,28 +4,64 @@
 
  class LRUCache{
      constructor(capacity){
-         this.cache = new Map();
          this.capacity = capacity;
+         this.map = new Map();
+         
+         this.head = {};
+         this.tail = {};
+
+         this.head.next = this.tail;
+         this.tail.prev = this.head;
      }
 
-     get(key){
-         if (!this.cache.has(key)){
-             return -1
-         }
-         const value = this.cache.get(key);
-         this.cache.delete(key);
-         this.cache.set(key, value);
-         return value;
+     removeLastUsed(){
+         const [key, next, prev] = [this.head.next.key, this.head.next.next, this.head];
+
+         this.map.delete(key);
+         this.head.next = next;
+         this.head.next.prev = prev;
      }
 
      put(key, value){
-         if (this.cache.has(key)){
-             this.cache.delete(key);
-         }
-         this.cache.set(key, value);
-         if (this.cache.size > this.capacity){
-             this.cache.delete(this.cache.keys().next().value);
-         }
+         const hasKey = this.get(key) !== -1;
+         const isAtCapacity = this.map.size === this.capacity;
+
+         if(hasKey) return (this.tail.prev.value = value);
+         if (isAtCapacity) this.removeLastUsed();
+
+         const node = {key, value};
+         this.map.set(key, node);
+         this.moveToFront(node);
+     }
+
+     moveToFront(node){
+         const [prev, next] = [this.tail.prev, this.tail];
+
+         this.tail.prev.next = node;
+         this.connectNode(node, {prev, next});
+         this.tail.prev = node;
+     }
+
+     connectNode (node, top){
+         node.prev = top.prev;
+         node.next = top.next;
+     }
+
+     get(key){
+         const hasKey = this.map.has(key);
+         if (!hasKey) return -1;
+
+         const node = this.map.get(key);
+
+         this.disconnectNode(node);
+         this.moveToFront(node);
+
+         return node.value
+     }
+
+     disconnectNode(node){
+         node.next.prev = node.prev;
+         node.prev.next = node.next;
      }
  }
 
