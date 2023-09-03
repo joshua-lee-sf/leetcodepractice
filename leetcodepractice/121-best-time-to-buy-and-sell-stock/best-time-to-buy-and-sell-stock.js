@@ -8,15 +8,17 @@ var maxProfit = function(prices) {
     let maxProfit = 0;
 
     while (right < prices.length) {
-        if (prices[left] < prices[right]){
-            let profit = prices[right] - prices[left];
+        let buy = prices[left];
+        let sell = prices[right];
 
+        if (buy < sell) {
+            let profit = sell - buy;
             maxProfit = Math.max(maxProfit, profit)
         } else {
             left = right;
         }
-        right ++
+        right++;
     }
 
-    return maxProfit;
+    return maxProfit
 };
