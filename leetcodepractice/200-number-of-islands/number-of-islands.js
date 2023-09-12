@@ -2,34 +2,46 @@
  * @param {character[][]} grid
  * @return {number}
  */
-var numIslands = function(grid, connectedComponents = 0) {
+
+ /*
+[["1","1","1","1","0"],
+ ["1","1","0","1","0"],
+ ["1","1","0","0","0"],
+ ["0","0","0","0","0"]]
+*/
+
+var numIslands = function(grid) {
+   if (!grid || grid.length === 0) {
+        return 0;
+    }
 
     const rows = grid.length;
-    const columns = grid[0].length;
+    const cols = grid[0].length;
+    let islands = 0;
 
-    for (let row = 0; row < rows; row++){
-        for (let column = 0; column < columns; column++){
-            const isLand = grid[row][column] === "1"
-            if (isLand) connectedComponents++;
-
-            dfs(grid, row, rows, column, columns);
+    function dfs(r, c) {
+        if (r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] === '0') {
+            return;
         }
-    } 
+        grid[r][c] = '0'; // Mark the current land as visited
 
-    return connectedComponents;
+        // Explore adjacent lands
+        dfs(r + 1, c);
+        dfs(r - 1, c);
+        dfs(r, c + 1);
+        dfs(r, c - 1);
+    }
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            if (grid[r][c] === '1') {
+                islands++;
+                dfs(r, c);
+            }
+        }
+    }
+
+    return islands;
+    
 };
 
-const dfs = (grid, row, rows, column, columns) => {
-    const isBaseCase = grid[row][column] === "0";
-    if (isBaseCase) return;
-
-    grid[row][column] = "0";
-
-    for (const [_row, _column] of getNeighbors(row, rows, column, columns)){
-        dfs(grid, _row, rows, _column, columns);
-    }
-}
-
-const getNeighbors = (row, rows, column, columns) => [[ 0,1 ], [ 0, -1 ], [ 1, 0 ], [ -1, 0 ] ]
-    .map(([_row, _column]) => [ (row + _row), (column + _column) ])
-    .filter(([_row, _column]) => (0 <= _row) && (_row < rows) && (0 <= _column) && (_column < columns))
