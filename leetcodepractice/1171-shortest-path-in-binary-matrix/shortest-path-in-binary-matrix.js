@@ -8,7 +8,8 @@ var shortestPathBinaryMatrix = function(grid) {
     const queue = [];
     queue.push([0,0,1]);
     visited.add('0,0');
-    const directions = [[0,1], [0, -1], [1,0], [-1,0], [1,1], [1,-1], [-1,1], [-1, -1]]
+    const directions = [[0,1], [0, -1], [1,0], [-1,0], 
+                        [1,1], [1,-1], [-1,1], [-1, -1]]
 
     while (queue.length > 0) {
         let [r, c, length] = queue.shift();
