@@ -4,19 +4,11 @@
  * @return {string}
  */
 var mergeAlternately = function(word1, word2) {
-    word1 = word1.split("");
-    word2 = word2.split("");
-    let newWord = ""
+    let newWord = ""; // newWord = 'apbqrs'
 
-    while (word1.length > 0 && word2.length > 0) {
-        newWord += word1.shift();
-        newWord += word2.shift();
-    }
-
-    if (word1.length === 0) {
-        newWord += word2.join('');
-    } else {
-        newWord += word1.join('');
+    for (let i = 0; i < Math.max(word1.length, word2.length); i++){ // i = 2, max 4
+        if (i < word1.length) newWord += word1[i]; // 2 < 2 ? 
+        if (i < word2.length) newWord += word2[i]; // 2 < 4 ?
     }
 
     return newWord;
