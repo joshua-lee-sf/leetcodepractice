@@ -4,16 +4,27 @@
  * @return {string}
  */
 var gcdOfStrings = function(str1, str2) {
-    if (str1 + str2 !== str2 + str1) return "";
+    const length1 = str1.length;
+    const length2 = str2.length;
 
-    let length1 = str1.length;
-    let length2 = str2.length;
+    const isDivisor = (l) => {
+        if (length1 % l || length2 % l) {
+            return false;
+        }
 
-    const gcds = (x,y) => {
-        if (!y) return x;
-        return gcds(y, x % y)
-    }
+        let [f1, f2] = [Math.floor(length1 / l), Math.floor(length2 / l)];
+        
+        return (
+            str1.slice(0,l).repeat(f1) == str1 && 
+            str1.slice(0,l).repeat(f2) == str2
+        );
+    };
 
-    let div = gcds(length1,length2);
-    return str1.slice(0, div);
+    for (let l = Math.min(length1, length2); l > 0; l--){
+        if (isDivisor(l)) {
+            return str1.slice(0,l);
+        }
+    };
+
+    return "";
 };
