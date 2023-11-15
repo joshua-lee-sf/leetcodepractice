@@ -13,15 +13,15 @@ var compress = function(chars) {
         while (j < chars.length && chars[j] === curr) {
             j++;
             count++;
-        }
+        };
 
         chars[i++] = curr;
 
         if (count > 1) {
             for (let digit of count.toString()) {
                 chars[i++] = digit;
-            }
-        }
+            };
+        };
     }
 
     return i;
